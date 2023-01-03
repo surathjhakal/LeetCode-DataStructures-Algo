@@ -1,24 +1,29 @@
+  public static double power(double m, int n) {
+      double ans = 1;
+      while (n > 0) {
+          if (n % 2 == 1) {
+              ans *= m;
+              n--;
+          }
+          m *= m;
+          n /= 2;
+      }
+      return ans;
+  }
   public static double findNthRootOfM(int n, int m){
-      double s=0;
-      double l=m;
-      while(s<=l){
-          System.out.println(s+"-"+l);
-          double mid=(l+s)/2.0;
-          int count=n;
-          double ans=1.0;
-          while(count>0 && ans<=m){
-              ans*=mid;
-              count--;
-          }
-          System.out.println(count+"-"+ans);
-//            ans=Math.round(ans*1000000)/1000000.0;
-          if(count==0 && ans==m) return Math.round(mid*1000000)/1000000.0;
-          if(ans<m){
-              s=mid;
+      double low = 0;
+      double high = m;
+      while (low<=high) {
+          double middle = (low + high) / 2;
+          double ans = power(middle, n);
+          ans=Math.round(ans * Math.pow(10, 6)) / Math.pow(10, 6);
+          if (ans<m) {
+              low = middle;
+          } else if(ans>m) {
+              high = middle;
           }else{
-              l=mid;
+              return Math.round(middle * Math.pow(10, 6)) / Math.pow(10, 6);
           }
-
       }
       return -1;
   }
